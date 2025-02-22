@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccb55bhony4p1"]
+
+[ext_resource type="PackedScene" uid="uid://ck4g802ppunbg" path="res://Assets/Player/player.tscn" id="1_5ppy1"]
+[ext_resource type="PackedScene" uid="uid://5j3nb5xgmmgp" path="res://Assets/Enemy/enemy.tscn" id="2_2ofte"]
+[ext_resource type="PackedScene" uid="uid://chbfjci5l7780" path="res://Assets/TownHall/townhall.tscn" id="3_kgxc7"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vf8sl"]
+vertices = PackedVector2Array(621.5, 392.188, 1142.95, 637.961, 10.9609, 634.031, 472.5, 392.188, 9.03125, 8.02344, 472.5, 301.813, 1140.04, 10.9688, 621.5, 301.813)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 1, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1, -2, 1150, 1, 1153, 648, 1, 644)])
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_5ppy1")]
+position = Vector2(411, 373)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("2_2ofte")]
+position = Vector2(910, 365)
+
+[node name="Buildings" type="NavigationRegion2D" parent="."]
+position = Vector2(-7, 1)
+navigation_polygon = SubResource("NavigationPolygon_vf8sl")
+
+[node name="TownHall" parent="Buildings" instance=ExtResource("3_kgxc7")]
+z_index = -1
+position = Vector2(548, 385)

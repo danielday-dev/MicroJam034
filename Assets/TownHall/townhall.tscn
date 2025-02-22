@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://chbfjci5l7780"]
+
+[ext_resource type="Texture2D" uid="uid://cj47i3coj66o1" path="res://Assets/TownHall/th.png" id="1_rlaud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4gv5"]
+size = Vector2(1032, 563)
+
+[node name="TownHall" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-6, -193)
+texture = ExtResource("1_rlaud")
+
+[node name="Body" type="StaticBody2D" parent="."]
+scale = Vector2(0.5, 0.5)
+
+[node name="Collider" type="CollisionShape2D" parent="Body"]
+position = Vector2(-4, -152)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_g4gv5")
