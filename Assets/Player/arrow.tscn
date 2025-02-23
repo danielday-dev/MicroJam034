@@ -6,18 +6,20 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cjbr"]
 size = Vector2(20, 5)
 
-[node name="Arrow" type="Node2D"]
+[node name="Arrow" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 4
+gravity_scale = 0.0
 script = ExtResource("1_5rwjn")
+speed = 400.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_2cjbr")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_yd4nb")
-
-[node name="Body" type="RigidBody2D" parent="."]
-
-[node name="Hitbox" type="CollisionShape2D" parent="Body"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_2cjbr")
 
 [node name="Destructor" type="Timer" parent="."]
 wait_time = 2.0

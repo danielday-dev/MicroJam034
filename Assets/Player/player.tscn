@@ -1,22 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://ck4g802ppunbg"]
+[gd_scene load_steps=7 format=3 uid="uid://ck4g802ppunbg"]
 
 [ext_resource type="PackedScene" uid="uid://dlybgs1xchyw7" path="res://Assets/Components/HealthComponent.tscn" id="1_62bl5"]
+[ext_resource type="Script" path="res://Assets/Player/player.gd" id="1_gxqyn"]
 [ext_resource type="Texture2D" uid="uid://cc3lyr0tu3ta6" path="res://Assets/Player/Gyattcher.png" id="1_j8db3"]
 [ext_resource type="PackedScene" uid="uid://bie4s72qqxl17" path="res://Assets/Components/NavComponent.tscn" id="3_ejf03"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5w7s"]
-size = Vector2(34, 21)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3cf0f"]
 radius = 24.0
 height = 98.0
 
-[node name="Player" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ftyrq"]
+radius = 232.009
 
-[node name="Body" type="CharacterBody2D" parent="."]
-
-[node name="MovementCollider" type="CollisionShape2D" parent="Body"]
-shape = SubResource("RectangleShape2D_b5w7s")
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_gxqyn")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -25,9 +22,25 @@ texture = ExtResource("1_j8db3")
 
 [node name="HealthComponent" parent="." instance=ExtResource("1_62bl5")]
 position = Vector2(2, -47)
+collision_layer = 2
+collision_mask = 0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="HealthComponent"]
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_3cf0f")
 
 [node name="NavComponent" parent="." instance=ExtResource("3_ejf03")]
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+
+[node name="AttackTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="Range" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_ftyrq")
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
